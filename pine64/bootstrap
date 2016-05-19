@@ -21,9 +21,12 @@ sudo mount -o bind /dev ./root/dev
 sudo mount -o bind /dev/pts ./root/dev/pts
 sudo mount -o bind /sys ./root/sys
 sudo mount -o bind /proc ./root/proc
+sudo cp /proc/mounts ./root/etc/mtab
 sudo cp second-stage ./root
+sudo cp /usr/bin/qemu-aarch64-static ./root/usr/bin
 
 sudo LC_ALL=C LANGUAGE=C LANG=C chroot ./root bash /second-stage
+
 sudo umount -lf ./root/dev/pts
 sudo umount -lf ./root/sys
 sudo umount -lf ./root/dev
