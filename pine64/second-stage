@@ -4,6 +4,7 @@ set -x
 
 LOCALE="en_US.UTF-8"
 TIMEZONE="America/Los_Angeles"
+HOSTNAME="pine64"
 # LOCALE="fr_FR.UTF-8"
 # TIMEZONE="Europe/Paris"
 
@@ -18,3 +19,12 @@ dpkg-reconfigure -f noninteractive locales
 # Timezone
 echo "$TIMEZONE" > /etc/timezone
 dpkg-reconfigure -f noninteractive tzdata
+
+# Networking
+echo "$HOSTNAME" > /etc/hostname
+echo "127.0.0.1 $HOSTNAME localhost" >> /etc/hosts
+echo "nameserver 8.8.8.8" > /etc/resolv.conf
+echo "auto lo" > /etc/network/interfaces.d/lo
+echo "iface lo inet loopback" >> /etc/network/interfaces.d/lo
+echo "auto eth0" >/etc/network/interfaces.d/eth0
+echo "iface eth0 inet dhcp" >>/etc/network/interfaces.d/eth0
