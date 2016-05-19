@@ -2,4 +2,13 @@
 
 set -x
 
+LOCALE="en_US.UTF-8"
+# LOCALE="fr_FR.UTF-8"
+
 debootstrap/debootstrap --second-stage
+
+# Locale
+echo "$LOCALE UTF-8" > /etc/locale.gen
+locale-gen
+debconf-set-selections <<< "locales locales/default_environment_locale select $LOCALE"
+dpkg-reconfigure -f noninteractive locales
