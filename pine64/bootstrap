@@ -32,7 +32,7 @@ sudo umount -lf ./root/sys
 sudo umount -lf ./root/dev
 sudo umount -lf ./root/proc
 
-sudo rm ./root/second-stage
+sudo rm ./root/second-stage ./root/etc/mtab ./root/usr/bin/qemu-aarch64-static
 sudo umount ./root
 sudo losetup -d /dev/loop0
 rmdir root
