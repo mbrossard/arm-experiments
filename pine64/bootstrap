@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo apt install -y mount dosfstools parted
+sudo apt install -y mount dosfstools parted debootstrap
 
 dd if=/dev/zero of=disk.img bs=1M count=1024
 
@@ -14,6 +14,8 @@ sudo mkfs.ext4 -L Root /dev/loop0p2
 
 mkdir root
 sudo mount /dev/loop0p2 ./root
+
+sudo debootstrap --foreign --arch=arm64 --include=vim,locales,dialog,apt jessie root http://ftp.debian.org/debian
 
 sudo umount ./root
 sudo losetup -d /dev/loop0
