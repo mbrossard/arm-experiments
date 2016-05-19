@@ -2,6 +2,7 @@
 
 set -x
 
+RELEASE="stretch"
 LOCALE="en_US.UTF-8"
 TIMEZONE="America/Los_Angeles"
 HOSTNAME="pine64"
@@ -31,3 +32,10 @@ echo "iface eth0 inet dhcp" >>/etc/network/interfaces.d/eth0
 
 # Serial
 echo T0:2345:respawn:/sbin/getty -L ttyS0 115200 vt100 >> etc/inittab
+
+# Package sources
+echo "deb http://ftp.debian.org/debian/ $RELEASE main contrib non-free" > /etc/apt/sources.list
+echo "deb http://ftp.debian.org/debian/ $RELEASE-updates main contrib non-free" >> /etc/apt/sources.list
+echo "deb http://security.debian.org/   $RELEASE/updates main contrib non-free" >> /etc/apt/sources.list
+
+echo "APT::Default-Release \"$RELEASE\";" > /etc/apt/apt.conf.d/99defaultrelease
