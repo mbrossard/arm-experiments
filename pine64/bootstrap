@@ -1,0 +1,8 @@
+#!/bin/bash
+
+sudo apt install -y mount
+
+dd if=/dev/zero of=disk.img bs=1M count=1024
+
+sudo losetup /dev/loop0 disk.img
+sudo losetup -d /dev/loop0
