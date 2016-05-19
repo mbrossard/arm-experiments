@@ -39,3 +39,14 @@ echo "deb http://ftp.debian.org/debian/ $RELEASE-updates main contrib non-free" 
 echo "deb http://security.debian.org/   $RELEASE/updates main contrib non-free" >> /etc/apt/sources.list
 
 echo "APT::Default-Release \"$RELEASE\";" > /etc/apt/apt.conf.d/99defaultrelease
+
+# Install packages
+dpkg-divert --local --rename --add /sbin/initctl; ln -s /bin/true /sbin/initctl
+export DEBIAN_FRONTEND=noninteractive
+
+apt-get -q=2 update
+apt-get -q=2 -y upgrade
+apt-get -q=2 -y dist-upgrade
+apt-get -q=2 -y install curl xz-utils u-boot-tools sudo openssh-server ntpdate ntp usbutils pciutils less lsof most sysfsutils firmware-linux screen wireless-tools iw libncurses5-dev cpufrequtils aptitude make bc man-db
+apt-get clean
+rm /sbin/initctl; dpkg-divert --local --rename --remove /sbin/initctl
