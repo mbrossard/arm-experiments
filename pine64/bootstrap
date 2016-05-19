@@ -1,8 +1,13 @@
 #!/bin/bash
 
-sudo apt install -y mount
+sudo apt install -y mount parted
 
 dd if=/dev/zero of=disk.img bs=1M count=1024
 
 sudo losetup /dev/loop0 disk.img
+sudo parted -s /dev/loop0 mklabel msdos
+sudo parted -s /dev/loop0 unit cyl mkpart primary fat32 -- 0 16
+sudo parted -s /dev/loop0 set 1 boot on
+sudo parted -s /dev/loop0 unit cyl mkpart primary ext2 -- 16 -2
+
 sudo losetup -d /dev/loop0
