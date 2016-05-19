@@ -28,3 +28,6 @@ echo "auto lo" > /etc/network/interfaces.d/lo
 echo "iface lo inet loopback" >> /etc/network/interfaces.d/lo
 echo "auto eth0" >/etc/network/interfaces.d/eth0
 echo "iface eth0 inet dhcp" >>/etc/network/interfaces.d/eth0
+
+# Serial
+echo T0:2345:respawn:/sbin/getty -L ttyS0 115200 vt100 >> etc/inittab
