@@ -3,7 +3,9 @@
 set -x
 
 LOCALE="en_US.UTF-8"
+TIMEZONE="America/Los_Angeles"
 # LOCALE="fr_FR.UTF-8"
+# TIMEZONE="Europe/Paris"
 
 debootstrap/debootstrap --second-stage
 
@@ -12,3 +14,7 @@ echo "$LOCALE UTF-8" > /etc/locale.gen
 locale-gen
 debconf-set-selections <<< "locales locales/default_environment_locale select $LOCALE"
 dpkg-reconfigure -f noninteractive locales
+
+# Timezone
+echo "$TIMEZONE" > /etc/timezone
+dpkg-reconfigure -f noninteractive tzdata
