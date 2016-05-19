@@ -17,6 +17,11 @@ sudo mount /dev/loop0p2 ./root
 
 sudo debootstrap --foreign --arch=arm64 --include=vim,locales,dialog,apt jessie root http://ftp.debian.org/debian
 
+sudo cp second-stage ./root
+
+sudo LC_ALL=C LANGUAGE=C LANG=C chroot ./root bash /second-stage
+
+sudo rm ./root/second-stage
 sudo umount ./root
 sudo losetup -d /dev/loop0
 rmdir root
