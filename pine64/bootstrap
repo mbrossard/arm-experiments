@@ -2,7 +2,7 @@
 
 sudo apt install -y mount dosfstools parted debootstrap
 
-dd if=/dev/zero of=disk.img bs=1M count=1024
+dd if=/dev/zero of=disk.img bs=1M count=4096
 
 sudo losetup /dev/loop0 disk.img
 sudo parted -s /dev/loop0 mklabel msdos
