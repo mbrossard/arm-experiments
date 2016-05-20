@@ -3,3 +3,9 @@
 set -ex 
 
 sudo apt-get install -t testing gcc-aarch64-linux-gnu
+
+sudo apt-get -y install git
+if [ -d linux-pine64 ] ; then
+    git clone https://github.com/longsleep/linux-pine64
+    (cd linux-pine64 ; git checkout pine64-hacks-1.2)
+fi
