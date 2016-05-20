@@ -1,0 +1,5 @@
+#!/bin/bash
+
+set -ex 
+
+sudo apt-get install -t testing gcc-aarch64-linux-gnu
