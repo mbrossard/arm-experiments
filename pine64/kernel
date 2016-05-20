@@ -11,3 +11,5 @@ if [ -d linux-pine64 ] ; then
 fi
 
 make -C linux-pine64 ARCH=arm64 sun50iw1p1smp_linux_defconfig
+curl -sSL https://github.com/longsleep/build-pine64-image/raw/master/blobs/pine64.dts > \
+     linux-pine64/arch/arm64/boot/dts/sun50i-a64-pine64-plus.dts
