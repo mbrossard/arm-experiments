@@ -17,6 +17,17 @@ check-dependencies:
 	sudo losetup -d /dev/loop0
 	touch .disk.img
 
+.mount.partitions: .disk.img
+	sudo losetup /dev/loop0 disk.img
+	mkdir -p root boot
+	sudo mount /dev/loop0p1 ./boot
+	sudo mount /dev/loop0p2 ./root
+	touch .mount.partitions
+
+.bootstrap.first: .mount.partitions
+	sudo debootstrap --foreign --arch=arm64 --include=vim,locales,dialog,apt $(DEBIAN) ./root $(SOURCE)
+	touch .boostrap.first
+
 .kernel.checkout:
 	if [ -d linux-pine64 ] ; then \
 		git clone https://github.com/longsleep/linux-pine64 ; \
