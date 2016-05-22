@@ -46,6 +46,21 @@ check-dependencies:
 	sudo LC_ALL=C LANGUAGE=C LANG=C chroot ./root bash /second-stage $(DEBIAN)
 	touch .bootstrap.second
 
+.finalize:
+	if [ -f .mount.vfs ] ; then \
+		sudo umount -lf ./root/dev/pts ; \
+		sudo umount -lf ./root/sys	   ; \
+		sudo umount -lf ./root/dev	   ; \
+		sudo umount -lf ./root/proc    ; \
+		sudo rm -f ./root/etc/mtab ./root/usr/bin/qemu-aarch64-static ; \
+		rm .mount.vfs ; \
+	fi
+	if [ -f .mount.partitions ] ; then \
+		sudo umount ./boot ; \
+		sudo umount ./root ; \
+		rm .mount.partitions ; \
+	fi
+
 .kernel.checkout:
 	if [ -d linux-pine64 ] ; then \
 		git clone https://github.com/longsleep/linux-pine64 ; \
