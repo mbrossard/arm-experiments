@@ -1,3 +1,7 @@
+#
+
+DEBIAN=stretch
+SOURCE=http://ftp.debian.org/debian
 
 all: .kernel.install
 
