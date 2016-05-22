@@ -5,6 +5,8 @@ all: .kernel.install
 	if [ -d linux-pine64 ] ; then \
 		git clone https://github.com/longsleep/linux-pine64 ; \
 	    (cd linux-pine64 ; git checkout pine64-hacks-1.2) ; \
+	else \
+		(cd linux-pine64 ; git pull) ; \
 	fi
 	touch .kernel.checkout
 
