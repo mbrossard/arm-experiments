@@ -2,7 +2,7 @@
 
 set -x
 
-RELEASE="stretch"
+RELEASE=$1
 LOCALE="en_US.UTF-8"
 TIMEZONE="America/Los_Angeles"
 HOSTNAME="pine64"
