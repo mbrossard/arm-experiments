@@ -34,6 +34,7 @@ check-dependencies:
 	sudo mount -o bind /sys ./root/sys
 	sudo mount -o bind /proc ./root/proc
 	sudo cp /proc/mounts ./root/etc/mtab
+	sudo cp /usr/bin/qemu-aarch64-static ./root/usr/bin
 	touch .mount.vfs
 
 .bootstrap.first: .mount.partitions
@@ -42,7 +43,6 @@ check-dependencies:
 
 .bootstrap.second: .bootstrap.first .mount.vfs
 	sudo cp second-stage ./root
-	sudo cp /usr/bin/qemu-aarch64-static ./root/usr/bin
 	sudo LC_ALL=C LANGUAGE=C LANG=C chroot ./root bash /second-stage $(DEBIAN)
 	touch .bootstrap.second
 
