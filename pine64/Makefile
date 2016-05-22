@@ -24,9 +24,23 @@ check-dependencies:
 	sudo mount /dev/loop0p2 ./root
 	touch .mount.partitions
 
+.mount.vfs: .mount.partitions
+	sudo mount -o bind /dev ./root/dev
+	sudo mount -o bind /dev/pts ./root/dev/pts
+	sudo mount -o bind /sys ./root/sys
+	sudo mount -o bind /proc ./root/proc
+	sudo cp /proc/mounts ./root/etc/mtab
+	touch .mount.vfs
+
 .bootstrap.first: .mount.partitions
 	sudo debootstrap --foreign --arch=arm64 --include=vim,locales,dialog,apt $(DEBIAN) ./root $(SOURCE)
 	touch .boostrap.first
+
+.bootstrap.second: .bootstrap.first .mount.vfs
+	sudo cp second-stage ./root
+	sudo cp /usr/bin/qemu-aarch64-static ./root/usr/bin
+	sudo LC_ALL=C LANGUAGE=C LANG=C chroot ./root bash /second-stage $(DEBIAN)
+	touch .bootstrap.second
 
 .kernel.checkout:
 	if [ -d linux-pine64 ] ; then \
