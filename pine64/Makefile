@@ -5,6 +5,18 @@ check-dependencies:
 	sudo apt-get install -y git mount dosfstools parted debootstrap binfmt-support qemu qemu-user-static
 	sudo apt-get install -t testing gcc-aarch64-linux-gnu
 
+.disk.img:
+	dd if=/dev/zero of=disk.img bs=1M count=4096
+	sudo losetup /dev/loop0 disk.img
+	sudo parted -s /dev/loop0 mklabel msdos
+	sudo parted -s /dev/loop0 unit cyl mkpart primary fat32 -- 0 16
+	sudo parted -s /dev/loop0 set 1 boot on
+	sudo parted -s /dev/loop0 unit cyl mkpart primary ext2 -- 16 -2
+	sudo mkfs.vfat -n Boot /dev/loop0p1
+	sudo mkfs.ext4 -L Root /dev/loop0p2
+	sudo losetup -d /dev/loop0
+	touch .disk.img
+
 .kernel.checkout:
 	if [ -d linux-pine64 ] ; then \
 		git clone https://github.com/longsleep/linux-pine64 ; \
