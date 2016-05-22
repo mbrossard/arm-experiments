@@ -44,6 +44,7 @@ check-dependencies:
 .bootstrap.second: .bootstrap.first .mount.vfs
 	sudo cp second-stage ./root
 	sudo LC_ALL=C LANGUAGE=C LANG=C chroot ./root bash /second-stage $(DEBIAN)
+	sudo rm ./root/second-stage 
 	touch .bootstrap.second
 
 .finalize:
