@@ -71,5 +71,6 @@ sun50i-a64-pine64-plus.dts:
 	make -C linux-pine64 ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- firmware_install INSTALL_FW_PATH=$PWD/root/lib/firmware
 	touch .kernel.install
 
-clean:
-	rm -rf boot .kernel.checkout .kernel.compile .kernel.install
+clean-kernel:
+	rm -rf .kernel.checkout .kernel.compile .kernel.install
+
