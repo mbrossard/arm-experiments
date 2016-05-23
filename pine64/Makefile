@@ -97,6 +97,18 @@ sun50i-a64-pine64-plus.dts:
 	make -C u-boot-pine64 ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- sun50iw1p1_config
 	make -C u-boot-pine64 ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf-
 
+.firmware.checkout:
+	if ! [ -d arm-trusted-firmware-pine64 ] ; then
+		git clone --depth 1 --branch allwinner --single-branch https://github.com/apritzel/arm-trusted-firmware.git arm-trusted-firmware-pine64 ; \
+	else ; \
+		(cd arm-trusted-firmware-pine64 ; git pull) ; \
+	fi
+	touch .firmware.checkout
+
+.firmware.compile: .firmware.checkout
+	make -C arm-trusted-firmware-pine64 ARCH=arm CROSS_COMPILE=aarch64-linux-gnu- PLAT=sun50iw1p1 bl31
+	touch .firmware.compile
+
 clean-kernel:
 	rm -rf .kernel.checkout .kernel.compile .kernel.install
 
