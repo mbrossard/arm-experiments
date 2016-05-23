@@ -64,8 +64,7 @@ check-dependencies:
 
 .kernel.checkout:
 	if ! [ -d linux-pine64 ] ; then \
-		git clone https://github.com/longsleep/linux-pine64 ; \
-	    (cd linux-pine64 ; git checkout pine64-hacks-1.2) ; \
+		git clone --depth 1 --single-branch -b pine64-hacks-1.2 https://github.com/longsleep/linux-pine64 ; \
 	else \
 		(cd linux-pine64 ; git pull) ; \
 	fi
