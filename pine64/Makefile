@@ -59,6 +59,7 @@ check-dependencies:
 	if [ -f .mount.partitions ] ; then \
 		sudo umount ./boot ; \
 		sudo umount ./root ; \
+		sudo losetup -d /dev/loop0 ; \
 		rm .mount.partitions ; \
 	fi
 
