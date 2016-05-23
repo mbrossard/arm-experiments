@@ -86,6 +86,16 @@ sun50i-a64-pine64-plus.dts:
 	sudo make -C linux-pine64 ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- modules_install INSTALL_MOD_PATH=$PWD/root/boot
 	sudo make -C linux-pine64 ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- firmware_install INSTALL_FW_PATH=$PWD/root/lib/firmware
 	touch .kernel.install
+.uboot.checkout:
+	if ! [ -d u-boot-pine64 ] ; then \
+		git clone --depth 1 --branch pine64-hacks --single-branch https://github.com/longsleep/u-boot-pine64.git u-boot-pine64 ; \
+	else ; \
+		(cd u-boot-pine64 ; git pull) ; \
+	fi
+
+.uboot.compile: .uboot.checkout
+	make -C u-boot-pine64 ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- sun50iw1p1_config
+	make -C u-boot-pine64 ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf-
 
 clean-kernel:
 	rm -rf .kernel.checkout .kernel.compile .kernel.install
