@@ -9,7 +9,9 @@ HOSTNAME="pine64"
 # LOCALE="fr_FR.UTF-8"
 # TIMEZONE="Europe/Paris"
 
-debootstrap/debootstrap --second-stage
+if [ -f debootstrap/debootstrap ] ; then
+   debootstrap/debootstrap --second-stage ;
+fi
 
 # Locale
 echo "$LOCALE UTF-8" > /etc/locale.gen
