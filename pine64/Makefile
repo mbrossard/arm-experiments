@@ -2,8 +2,10 @@
 
 DEBIAN=stretch
 SOURCE=http://ftp.debian.org/debian
+UBOOT=apritzel
 
-all: .kernel.install
+all: .bootstrap .kernel.install .firmware.compile .u-boot-$(UBOOT).compile .sunxi-tools.compile
+	$(MAKE) .finalize
 
 check-dependencies:
 	sudo apt-get install -y git mount dosfstools parted debootstrap binfmt-support qemu qemu-user-static
