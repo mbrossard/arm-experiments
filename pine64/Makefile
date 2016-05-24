@@ -7,7 +7,7 @@ all: .kernel.install
 
 check-dependencies:
 	sudo apt-get install -y git mount dosfstools parted debootstrap binfmt-support qemu qemu-user-static
-	sudo apt-get install -t testing gcc-aarch64-linux-gnu gcc-arm-linux-gnueabihf
+	sudo apt-get install -t testing gcc-aarch64-linux-gnu gcc-arm-linux-gnueabihf device-tree-compiler
 
 .disk.img:
 	dd if=/dev/zero of=disk.img bs=1M count=4096
