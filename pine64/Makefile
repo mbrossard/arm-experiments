@@ -74,7 +74,7 @@ check-dependencies:
 .blobs.checkout:
 	if ! [ -d build-pine64-image ] ; then \
 		git clone https://github.com/longsleep/build-pine64-image.git ; \
-	else ; \
+	else \
 		(cd build-pine64-image ; git pull) ; \
 	fi
 
