@@ -71,12 +71,16 @@ check-dependencies:
 	fi
 	touch .kernel.checkout
 
-sun50i-a64-pine64-plus.dts:
-	curl -sSL https://github.com/longsleep/build-pine64-image/raw/master/blobs/pine64.dts > $@
+.blobs.checkout:
+	if ! [ -d build-pine64-image ] ; then \
+		git clone https://github.com/longsleep/build-pine64-image.git ; \
+	else ; \
+		(cd build-pine64-image ; git pull) ; \
+	fi
 
-.kernel.compile: .kernel.checkout sun50i-a64-pine64-plus.dts
+.kernel.compile: .kernel.checkout .blobs.checkout
 	make -C linux-pine64 ARCH=arm64 sun50iw1p1smp_linux_defconfig
-	cp sun50i-a64-pine64-plus.dts linux-pine64/arch/arm64/boot/dts
+	cp build-pine64-image/blobs/pine64.dts linux-pine64/arch/arm64/boot/dts/sun50i-a64-pine64-plus.dts
 	make -C linux-pine64 ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- -j 4 Image sun50i-a64-pine64-plus.dtb modules
 	touch .kernel.compile
 
