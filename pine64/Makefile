@@ -81,6 +81,7 @@ check-dependencies:
 	else \
 		(cd build-pine64-image ; git pull) ; \
 	fi
+	touch .blobs.checkout
 
 .kernel.compile: .kernel.checkout .blobs.checkout
 	make -C linux-pine64 ARCH=arm64 sun50iw1p1smp_linux_defconfig
@@ -105,6 +106,7 @@ check-dependencies:
 .u-boot-longsleep.compile: .u-boot-longsleep.checkout
 	make -C u-boot-longsleep sun50iw1p1_config
 	make -C u-boot-longsleep ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf-
+	touch .u-boot-longsleep.compile
 
 .u-boot-apritzel.checkout:
 	if ! [ -d u-boot-apritzel ] ; then \
@@ -117,6 +119,7 @@ check-dependencies:
 .u-boot-apritzel.compile: .u-boot-apritzel.checkout
 	make -C u-boot-apritzel pine64_defconfig
 	make -C u-boot-apritzel ARCH=arm CROSS_COMPILE=aarch64-linux-gnu-
+	touch .u-boot-apritzel.compile
 
 .firmware.checkout:
 	if ! [ -d arm-trusted-firmware-pine64 ] ; then
