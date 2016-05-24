@@ -37,11 +37,13 @@ check-dependencies:
 	sudo cp /usr/bin/qemu-aarch64-static ./root/usr/bin
 	touch .mount.vfs
 
-.bootstrap.first: .mount.partitions
+.bootstrap.first:
+	$(MAKE) .mount.partitions
 	sudo debootstrap --foreign --arch=arm64 --include=vim,locales,dialog,apt $(DEBIAN) ./root $(SOURCE)
 	touch .boostrap.first
 
-.bootstrap.second: .bootstrap.first .mount.vfs
+.bootstrap.second:
+	$(MAKE) .bootstrap.first .mount.vfs
 	sudo cp second-stage ./root
 	sudo LC_ALL=C LANGUAGE=C LANG=C chroot ./root bash /second-stage $(DEBIAN)
 	sudo rm ./root/second-stage 
