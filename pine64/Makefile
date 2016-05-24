@@ -102,6 +102,18 @@ check-dependencies:
 	make -C u-boot-longsleep sun50iw1p1_config
 	make -C u-boot-longsleep ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf-
 
+.u-boot-apritzel.checkout:
+	if ! [ -d u-boot-apritzel ] ; then \
+		git clone --depth 1 --branch pine64 --single-branch https://github.com/apritzel/u-boot u-boot-apritzel ; \
+	else \
+		(cd u-boot-apritzel ; git pull) ; \
+	fi
+	touch .u-boot-apritzel.checkout
+
+.u-boot-apritzel.compile: .u-boot-apritzel.checkout
+	make -C u-boot-apritzel pine64_defconfig
+	make -C u-boot-apritzel ARCH=arm CROSS_COMPILE=aarch64-linux-gnu-
+
 .firmware.checkout:
 	if ! [ -d arm-trusted-firmware-pine64 ] ; then
 		git clone --depth 1 --branch allwinner --single-branch https://github.com/apritzel/arm-trusted-firmware.git arm-trusted-firmware-pine64 ; \
