@@ -89,7 +89,8 @@ check-dependencies:
 	make -C linux-pine64 ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- -j 4 Image sun50i-a64-pine64-plus.dtb modules
 	touch .kernel.compile
 
-.kernel.install: .kernel.compile .mount.vfs
+.kernel.install: .kernel.compile
+	$(MAKE) .mount.vfs
 	sudo mkdir -p boot/pine64
 	sudo cp linux-pine64/arch/arm64/boot/dts/sun50i-a64-pine64-plus.dtb linux-pine64/arch/arm64/boot/Image boot/pine64
 	sudo make -C linux-pine64 ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- modules_install INSTALL_MOD_PATH=$PWD/root/boot
