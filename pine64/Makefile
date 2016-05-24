@@ -122,9 +122,9 @@ check-dependencies:
 	touch .u-boot-apritzel.compile
 
 .firmware.checkout:
-	if ! [ -d arm-trusted-firmware-pine64 ] ; then
+	if ! [ -d arm-trusted-firmware-pine64 ] ; then \
 		git clone --depth 1 --branch allwinner --single-branch https://github.com/apritzel/arm-trusted-firmware.git arm-trusted-firmware-pine64 ; \
-	else ; \
+	else \
 		(cd arm-trusted-firmware-pine64 ; git pull) ; \
 	fi
 	touch .firmware.checkout
@@ -136,7 +136,7 @@ check-dependencies:
 .sunxi-tools.checkout:
 	if ! [ -d sunxi-pack-tools ] ; then \
 		git clone https://github.com/longsleep/sunxi-pack-tools.git sunxi-pack-tools ; \
-	else ; \
+	else \
 		(cd sunxi-pack-tools ; git pull) ; \
 	fi
 	touch .sunxi-tools.checkout
