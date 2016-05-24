@@ -86,16 +86,17 @@ sun50i-a64-pine64-plus.dts:
 	sudo make -C linux-pine64 ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- modules_install INSTALL_MOD_PATH=$PWD/root/boot
 	sudo make -C linux-pine64 ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- firmware_install INSTALL_FW_PATH=$PWD/root/lib/firmware
 	touch .kernel.install
-.uboot.checkout:
-	if ! [ -d u-boot-pine64 ] ; then \
-		git clone --depth 1 --branch pine64-hacks --single-branch https://github.com/longsleep/u-boot-pine64.git u-boot-pine64 ; \
-	else ; \
-		(cd u-boot-pine64 ; git pull) ; \
+.u-boot-longsleep.checkout:
+	if ! [ -d u-boot-longsleep ] ; then \
+		git clone --depth 1 --branch pine64-hacks --single-branch https://github.com/longsleep/u-boot-longsleep.git u-boot-longsleep ; \
+	else \
+		(cd u-boot-longsleep ; git pull) ; \
 	fi
+	touch .u-boot-longsleep.checkout
 
-.uboot.compile: .uboot.checkout
-	make -C u-boot-pine64 ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- sun50iw1p1_config
-	make -C u-boot-pine64 ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf-
+.u-boot-longsleep.compile: .u-boot-longsleep.checkout
+	make -C u-boot-longsleep sun50iw1p1_config
+	make -C u-boot-longsleep ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf-
 
 .firmware.checkout:
 	if ! [ -d arm-trusted-firmware-pine64 ] ; then
