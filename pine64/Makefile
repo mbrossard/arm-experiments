@@ -128,6 +128,18 @@ check-dependencies:
 	make -C arm-trusted-firmware-pine64 ARCH=arm CROSS_COMPILE=aarch64-linux-gnu- PLAT=sun50iw1p1 bl31
 	touch .firmware.compile
 
+.sunxi-tools.checkout:
+	if ! [ -d sunxi-pack-tools ] ; then \
+		git clone https://github.com/longsleep/sunxi-pack-tools.git sunxi-pack-tools ; \
+	else ; \
+		(cd sunxi-pack-tools ; git pull) ; \
+	fi
+	touch .sunxi-tools.checkout
+
+.sunxi-tools.compile: .sunxi-tools.checkout
+	make -C sunxi-pack-tools
+	touch .sunxi-tools.compile
+
 clean-kernel:
 	rm -rf .kernel.checkout .kernel.compile .kernel.install
 
