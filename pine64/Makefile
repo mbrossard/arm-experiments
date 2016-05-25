@@ -128,6 +128,12 @@ ROOT_S_START = $(shell expr 40960 + $(BOOT_SIZE) \* 2048)
 	make -C u-boot-apritzel ARCH=arm CROSS_COMPILE=aarch64-linux-gnu-
 	touch .u-boot-apritzel.compile
 
+.u-boot-apritzel.install: .u-boot-apritzel.compile
+	$(MAKE) .mount.partitions
+	dd if=build-pine64-image/blobs/boot0.bin conv=notrunc bs=1k seek=8     of=disk.img
+	dd if=u-boot-apritzel/u-boot-dtb.bin     conv=notrunc bs=1k seek=19096 of=disk.img
+	touch .u-boot-apritzel.install
+
 .firmware.checkout:
 	if ! [ -d arm-trusted-firmware-pine64 ] ; then \
 		git clone --depth 1 --branch allwinner --single-branch https://github.com/apritzel/arm-trusted-firmware.git arm-trusted-firmware-pine64 ; \
