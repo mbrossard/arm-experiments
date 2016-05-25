@@ -10,7 +10,8 @@ all: .bootstrap .kernel.install .firmware.compile .u-boot-$(UBOOT).compile .sunx
 	$(MAKE) .finalize
 
 check-dependencies:
-	sudo apt-get install -y git mount dosfstools parted debootstrap binfmt-support qemu qemu-user-static
+	sudo apt-get install -y git mount dosfstools parted debootstrap binfmt-support \
+		qemu qemu-user-static util-linux dos2unix
 	sudo apt-get install -t testing gcc-aarch64-linux-gnu gcc-arm-linux-gnueabihf device-tree-compiler
 
 BOOT_S_SIZE  = $(shell expr $(BOOT_SIZE) \* 2048 - 2)
