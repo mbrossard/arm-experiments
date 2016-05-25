@@ -16,14 +16,13 @@ check-dependencies:
 BOOT_S_SIZE  = $(shell expr $(BOOT_SIZE) \* 2048 - 2)
 BOOT_S_END   = $(shell expr 40960 + $(BOOT_S_SIZE))
 ROOT_S_START = $(shell expr 40960 + $(BOOT_SIZE) \* 2048)
-
 .disk.img:
-	dd if=/dev/zero of=disk.img bs=1M count=4096
+	dd if=/dev/zero of=disk.img bs=1M count=$(TOTAL_SIZE)
 	sudo losetup /dev/loop0 disk.img
 	sudo parted -s /dev/loop0 mklabel msdos
-	sudo parted -s /dev/loop0 unit cyl mkpart primary fat32 -- 0 16
+	sudo parted -s /dev/loop0 unit s mkpart primary fat32 -- 40960 $(BOOT_S_END)
 	sudo parted -s /dev/loop0 set 1 boot on
-	sudo parted -s /dev/loop0 unit cyl mkpart primary ext2 -- 16 -2
+	sudo parted -s /dev/loop0 unit s mkpart primary ext2 -- $(ROOT_S_START) -2
 	sudo mkfs.vfat -n Boot /dev/loop0p1
 	sudo mkfs.ext4 -L Root /dev/loop0p2
 	sudo losetup -d /dev/loop0
