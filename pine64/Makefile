@@ -24,7 +24,7 @@ ROOT_S_START = $(shell expr 40960 + $(BOOT_SIZE) \* 2048)
 	sudo parted -s /dev/loop0 unit s mkpart primary fat32 -- 40960 $(BOOT_S_END)
 	sudo parted -s /dev/loop0 set 1 boot on
 	sudo parted -s /dev/loop0 unit s mkpart primary ext2 -- $(ROOT_S_START) -2
-	sudo mkfs.vfat -n Boot /dev/loop0p1
+	sudo mkfs.vfat -n BOOT /dev/loop0p1
 	sudo mkfs.ext4 -L Root /dev/loop0p2
 	sudo losetup -d /dev/loop0
 	touch .disk.img
