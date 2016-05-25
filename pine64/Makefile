@@ -3,6 +3,8 @@
 DEBIAN=stretch
 SOURCE=http://ftp.debian.org/debian
 UBOOT=apritzel
+BOOT_SIZE=100
+TOTAL_SIZE=2048
 
 all: .bootstrap .kernel.install .firmware.compile .u-boot-$(UBOOT).compile .sunxi-tools.compile
 	$(MAKE) .finalize
@@ -10,6 +12,10 @@ all: .bootstrap .kernel.install .firmware.compile .u-boot-$(UBOOT).compile .sunx
 check-dependencies:
 	sudo apt-get install -y git mount dosfstools parted debootstrap binfmt-support qemu qemu-user-static
 	sudo apt-get install -t testing gcc-aarch64-linux-gnu gcc-arm-linux-gnueabihf device-tree-compiler
+
+BOOT_S_SIZE  = $(shell expr $(BOOT_SIZE) \* 2048 - 2)
+BOOT_S_END   = $(shell expr 40960 + $(BOOT_S_SIZE))
+ROOT_S_START = $(shell expr 40960 + $(BOOT_SIZE) \* 2048)
 
 .disk.img:
 	dd if=/dev/zero of=disk.img bs=1M count=4096
