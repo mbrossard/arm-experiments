@@ -115,6 +115,25 @@ ROOT_S_START = $(shell expr 40960 + $(BOOT_SIZE) \* 2048)
 	make -C u-boot-longsleep ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf-
 	touch .u-boot-longsleep.compile
 
+# Instead of compiling build-pine64-image/blobs/pine64.dts maybe use
+# linux-pine64/arch/arm64/boot/dts/sun50i-a64-pine64-plus.dtb instead?
+.u-boot-longsleep.install: .u-boot-longsleep.compile .sunxi-tools.compile .firmware.compile
+	$(MAKE) .mount.partitions
+	cp build-pine64-image/blobs/sys_config.fex .
+	unix2dos sys_config.fex
+	./sunxi-pack-tools/bin/script sys_config.fex
+	./sunxi-pack-tools/bin/merge_uboot u-boot-longsleep/u-boot.bin \
+		arm-trusted-firmware-pine64/build/sun50iw1p1/release/bl31.bin u-boot-secmonitor.bin secmonitor
+	./sunxi-pack-tools/bin/merge_uboot u-boot-secmonitor.bin \
+		build-pine64-image/blobs/scp.bin u-boot-scp.bin scp
+	dtc -Odtb -o pine64.dtb build-pine64-image/blobs/pine64.dts
+	./sunxi-pack-tools/update_uboot_fdt/update_uboot_fdt \
+		u-boot-scp.bin pine64.dtb u-boot-dtb.bin
+	./sunxi-pack-tools/update_uboot/update_uboot u-boot-dtb.bin sys_config.bin
+	dd if=build-pine64-image/blobs/boot0.bin  conv=notrunc bs=1k seek=8     of=disk.img
+	dd if=u-boot-dtb.bin                      conv=notrunc bs=1k seek=19096 of=disk.img
+	touch .u-boot-longsleep.install
+
 .u-boot-apritzel.checkout:
 	if ! [ -d u-boot-apritzel ] ; then \
 		git clone --depth 1 --branch pine64 --single-branch https://github.com/apritzel/u-boot u-boot-apritzel ; \
