@@ -162,6 +162,7 @@ ROOT_S_START = $(shell expr 40960 + $(BOOT_SIZE) \* 2048)
 .u-boot-apritzel.compile: .u-boot-apritzel.checkout
 	make -C u-boot-apritzel pine64_defconfig
 	make -C u-boot-apritzel ARCH=arm CROSS_COMPILE=aarch64-linux-gnu-
+	make -C pine64-apritzel/tools 
 	touch .u-boot-apritzel.compile
 
 .u-boot-apritzel.install: .u-boot-apritzel.compile
