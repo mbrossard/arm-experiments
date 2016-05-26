@@ -134,6 +134,10 @@ ROOT_S_START = $(shell expr 40960 + $(BOOT_SIZE) \* 2048)
 	dd if=u-boot-dtb.bin                      conv=notrunc bs=1k seek=19096 of=disk.img
 	touch .u-boot-longsleep.install
 
+######################################################################
+# U-Boot: apritzel version 
+# Based on a modern upstream version, compiles, 64-bit... but it
+# can't be used with boot0 and ATF
 .u-boot-apritzel.checkout:
 	if ! [ -d u-boot-apritzel ] ; then \
 		git clone --depth 1 --branch pine64 --single-branch https://github.com/apritzel/u-boot u-boot-apritzel ; \
