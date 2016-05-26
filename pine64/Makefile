@@ -152,6 +152,11 @@ ROOT_S_START = $(shell expr 40960 + $(BOOT_SIZE) \* 2048)
 	else \
 		(cd u-boot-apritzel ; git pull) ; \
 	fi
+	if ! [ -d pine64-apritzel ] ; then \
+		git clone https://github.com/apritzel/pine64.git pine64-apritzel ; \
+	else \
+		(cd pine64-apritzel ; git pull) ; \
+	fi
 	touch .u-boot-apritzel.checkout
 
 .u-boot-apritzel.compile: .u-boot-apritzel.checkout
