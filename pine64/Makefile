@@ -57,6 +57,9 @@ ROOT_S_START = $(shell expr 40960 + $(BOOT_SIZE) \* 2048)
 	sudo rm ./root/second-stage 
 	touch .bootstrap.second
 
+.bootstrap: .bootstrap.second
+	touch .boostrap
+
 .finalize:
 	if [ -f .mount.vfs ] ; then \
 		sudo umount -lf ./root/dev/pts ; \
