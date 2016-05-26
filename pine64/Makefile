@@ -6,7 +6,7 @@ UBOOT=apritzel
 BOOT_SIZE=100
 TOTAL_SIZE=2048
 
-all: .bootstrap .kernel.install .firmware.compile .u-boot-$(UBOOT).compile .sunxi-tools.compile
+all: .bootstrap .kernel.install .firmware.compile .u-boot-$(UBOOT).compile
 	$(MAKE) .finalize
 
 check-dependencies:
