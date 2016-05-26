@@ -168,7 +168,10 @@ ROOT_S_START = $(shell expr 40960 + $(BOOT_SIZE) \* 2048)
 .u-boot-apritzel.install: .u-boot-apritzel.compile
 	$(MAKE) .mount.partitions
 	dd if=build-pine64-image/blobs/boot0.bin conv=notrunc bs=1k seek=8     of=disk.img
-	dd if=u-boot-apritzel/u-boot-dtb.bin     conv=notrunc bs=1k seek=19096 of=disk.img
+	pine64-apritzel/tools/boot0img -o firmware.img -u u-boot-apritzel/u-boot-dtb.img -e \
+		-s build-pine64-image/blobs/scp.bin \
+		-d arm-trusted-firmware-pine64/build/sun50iw1p1/release/bl31.bin
+	dd if=firmware.img conv=notrunc bs=1k seek=19096 of=disk.img
 	touch .u-boot-apritzel.install
 
 .firmware.checkout:
