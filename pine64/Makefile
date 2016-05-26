@@ -102,6 +102,11 @@ ROOT_S_START = $(shell expr 40960 + $(BOOT_SIZE) \* 2048)
 	sudo make -C linux-pine64 ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- modules_install INSTALL_MOD_PATH=$PWD/root/boot
 	sudo make -C linux-pine64 ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- firmware_install INSTALL_FW_PATH=$PWD/root/lib/firmware
 	touch .kernel.install
+
+######################################################################
+# U-Boot: longsleep version 
+# Based on Allwinner's BSP version. It's only drawback is that it
+# doesn't compile
 .u-boot-longsleep.checkout:
 	if ! [ -d u-boot-longsleep ] ; then \
 		git clone --depth 1 --branch pine64-hacks --single-branch https://github.com/longsleep/u-boot-longsleep.git u-boot-longsleep ; \
