@@ -13,6 +13,12 @@ if [ -f debootstrap/debootstrap ] ; then
    debootstrap/debootstrap --second-stage ;
 fi
 
+cat <<EOF >/etc/fstab
+# <file system>	  <dir>   <type>  <options>	          <dump>   <pass>
+/dev/mmcblk0p1    /boot   vfat    defaults            0        2
+/dev/mmcblk0p2    /       ext4    defaults,noatime    0        1
+EOF
+
 # Locale
 echo "$LOCALE UTF-8" > /etc/locale.gen
 locale-gen
