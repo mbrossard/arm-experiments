@@ -201,3 +201,6 @@ ROOT_S_START = $(shell expr 40960 + $(BOOT_SIZE) \* 2048)
 clean-kernel:
 	rm -rf .kernel.checkout .kernel.compile .kernel.install
 
+clean-image:
+	$(MAKE) .finalize
+	rm -rf disk.img
