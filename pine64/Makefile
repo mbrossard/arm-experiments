@@ -109,6 +109,7 @@ ROOT_S_START = $(shell expr 40960 + $(BOOT_SIZE) \* 2048)
 	for kver in `(cd linux-pine64 ; $(MAKE) kernelversion | grep -v make)` ; do \
 		sudo cp linux-pine64/.config root/boot/config-$$kver ;          \
 		sudo chroot root update-initramfs -c -k $$kver+ ;               \
+		sudo mv ./root/boot/initrd.img-$$kver+ ./root/boot/initrd.img ; \
 	done
 	touch .kernel.install
 
