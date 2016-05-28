@@ -101,10 +101,10 @@ ROOT_S_START = $(shell expr 40960 + $(BOOT_SIZE) \* 2048)
 
 .kernel.install: .kernel.compile
 	$(MAKE) .mount.vfs
-	sudo mkdir -p boot/pine64
-	sudo cp linux-pine64/arch/arm64/boot/dts/sun50i-a64-pine64-plus.dtb linux-pine64/arch/arm64/boot/Image boot/pine64
-	sudo make -C linux-pine64 ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- modules_install INSTALL_MOD_PATH=$PWD/root/boot
-	sudo make -C linux-pine64 ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- firmware_install INSTALL_FW_PATH=$PWD/root/lib/firmware
+	sudo mkdir -p ./root/boot/pine64
+	sudo cp linux-pine64/arch/arm64/boot/dts/sun50i-a64-pine64-plus.dtb linux-pine64/arch/arm64/boot/Image ./root/boot/pine64
+	sudo make -C linux-pine64 ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- modules_install INSTALL_MOD_PATH=$$PWD/root
+	sudo make -C linux-pine64 ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- firmware_install INSTALL_FW_PATH=$$PWD/root/lib/firmware
 	touch .kernel.install
 
 ######################################################################
