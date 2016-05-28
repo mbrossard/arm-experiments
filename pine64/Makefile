@@ -107,9 +107,9 @@ ROOT_S_START = $(shell expr 40960 + $(BOOT_SIZE) \* 2048)
 	sudo make -C linux-pine64 ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- firmware_install INSTALL_FW_PATH=$$PWD/root/lib/firmware
 	sudo make -C linux-pine64 headers_install INSTALL_HDR_PATH=$$PWD/root/usr
 	for kver in `(cd linux-pine64 ; $(MAKE) kernelversion | grep -v make)` ; do \
-		sudo cp linux-pine64/.config root/boot/config-$$kver ;          \
-		sudo chroot root update-initramfs -c -k $$kver+ ;               \
-		sudo mv ./root/boot/initrd.img-$$kver+ ./root/boot/initrd.img ; \
+		sudo cp linux-pine64/.config ./root/boot/pine64/config-$${kver}+ ; \
+		sudo chroot root update-initramfs -c -k $${kver}+ ;                \
+		sudo mv ./root/boot/initrd.img-$${kver}+ ./root/boot/initrd.img ;  \
 	done
 	touch .kernel.install
 
