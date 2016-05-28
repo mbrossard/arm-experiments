@@ -106,6 +106,9 @@ ROOT_S_START = $(shell expr 40960 + $(BOOT_SIZE) \* 2048)
 	sudo make -C linux-pine64 ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- modules_install INSTALL_MOD_PATH=$$PWD/root
 	sudo make -C linux-pine64 ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- firmware_install INSTALL_FW_PATH=$$PWD/root/lib/firmware
 	sudo make -C linux-pine64 headers_install INSTALL_HDR_PATH=$$PWD/root/usr
+	for kver in `(cd linux-pine64 ; $(MAKE) kernelversion | grep -v make)` ; do \
+		sudo chroot root update-initramfs -c -k $$kver+ ;               \
+	done
 	touch .kernel.install
 
 ######################################################################
