@@ -31,9 +31,10 @@ ROOT_S_START = $(shell expr 40960 + $(BOOT_SIZE) \* 2048)
 
 .mount.partitions: .disk.img
 	sudo losetup /dev/loop0 disk.img
-	mkdir -p root boot
-	sudo mount /dev/loop0p1 ./boot
+	mkdir -p ./root
 	sudo mount /dev/loop0p2 ./root
+	sudo mkdir -p ./root/boot
+	sudo mount /dev/loop0p1 ./root/boot
 	touch .mount.partitions
 
 .mount.vfs: .mount.partitions
@@ -70,7 +71,7 @@ ROOT_S_START = $(shell expr 40960 + $(BOOT_SIZE) \* 2048)
 		rm .mount.vfs ; \
 	fi
 	if [ -f .mount.partitions ] ; then \
-		sudo umount ./boot ; \
+		sudo umount ./root/boot ; \
 		sudo umount ./root ; \
 		sudo losetup -d /dev/loop0 ; \
 		rm .mount.partitions ; \
