@@ -9,6 +9,15 @@ TOTAL_SIZE=2048
 all: .bootstrap .kernel.install .firmware.compile .u-boot-$(UBOOT).compile
 	$(MAKE) .finalize
 
+update:
+	for i in linux-pine64 u-boot-pine64 arm-trusted-firmware-pine64 sunxi-pack-tools build-pine64-image u-boot-longsleep ; do \
+		if [ -d $$i ] ; then \
+			(cd $$i ; git pull) ; \
+		fi ; \
+	done
+	rm -f .kernel.checkout .firmware.checkout .sunxi-tools.checkout .blobs.checkout \
+		.u-boot-pine64.checkout
+
 check-dependencies:
 	sudo apt-get install -y git mount dosfstools parted debootstrap binfmt-support \
 		qemu qemu-user-static util-linux dos2unix xz-utils
