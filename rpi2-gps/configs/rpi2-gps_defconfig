@@ -52,3 +52,4 @@ BR2_PACKAGE_NTP_TICKADJ=y
 BR2_PACKAGE_OPENSSH=y
 
 BR2_GLOBAL_PATCH_DIR="$(BR2_EXTERNAL)/board/raspberrypi2/rpi2-gps/patches"
+BR2_ROOTFS_OVERLAY="$(BR2_EXTERNAL)/board/raspberrypi2/rpi2-gps/rootfs_overlay"
