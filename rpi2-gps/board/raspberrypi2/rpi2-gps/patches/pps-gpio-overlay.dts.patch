@@ -1,0 +1,11 @@
+--- a/arch/arm/boot/dts/overlays/pps-gpio-overlay.dts	2015-12-15 12:58:45.000000000 +0100
++++ b/arch/arm/boot/dts/overlays/pps-gpio-overlay.dts	2016-03-04 02:42:51.537154453 +0100
+@@ -2,7 +2,7 @@
+ /plugin/;
+ 
+ / {
+-	compatible = "brcm,bcm2708";
++	compatible = "brcm,bcm2708,bcm2709";
+ 	fragment@0 {
+ 		target-path = "/";
+ 		__overlay__ {
