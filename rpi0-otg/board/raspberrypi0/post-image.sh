@@ -10,7 +10,7 @@ mkdir -p "${BINARIES_DIR}/kernel-marked"
 ${HOST_DIR}/usr/bin/mkknlimg "${BINARIES_DIR}/zImage" \
 	"${BINARIES_DIR}/kernel-marked/zImage"
 
-echo "console=tty1 root=/dev/mmcblk0p2 rootwait" > "${BINARIES_DIR}/rpi-firmware/cmdline.txt"
+echo "console=tty1 root=/dev/mmcblk0p2 rootwait modules-load=dwc2,g_serial" > "${BINARIES_DIR}/rpi-firmware/cmdline.txt"
 grep -qE dwc2 "${BINARIES_DIR}/rpi-firmware/config.txt" || \
 echo "dtoverlay=dwc2" >> "${BINARIES_DIR}/rpi-firmware/config.txt"
 
