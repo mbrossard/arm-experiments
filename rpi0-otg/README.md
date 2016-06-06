@@ -1,9 +1,11 @@
 # rpi0-otg
 
-Build a minimal customized buidlroot image for Raspberry Pi 0 with
-support for OTG.
+Build a minimal customized buidlroot image for Raspberry Pi Zero with
+support for OTG. Compared to a minimal build from buildroot it should
+allow to connect the Raspberry Pi to a computer and use the USB cable
+for power and as a serial connection.
 
-## Instructions
+## Build instructions
 
 > git clone git://git.buildroot.net/buildroot buildroot
 
