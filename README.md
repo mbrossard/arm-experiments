@@ -1,2 +1,11 @@
 # arm-experiments
-Experiments with ARM platforms
+
+This repository contains some of my experiments with ARM platforms.
+
+## pine64
+
+## rpi0-otg
+
+## rpi2-gps
+
+
