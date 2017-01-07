@@ -199,7 +199,7 @@ ROOT_S_START = $(shell expr 40960 + $(BOOT_SIZE) \* 2048)
 	touch .firmware.checkout
 
 .firmware.compile: .firmware.checkout
-	make -C arm-trusted-firmware-pine64 ARCH=arm CROSS_COMPILE=aarch64-linux-gnu- PLAT=sun50iw1p1 bl31
+	make -C arm-trusted-firmware-pine64 ARCH=arm CROSS_COMPILE=aarch64-linux-gnu- PLAT=sun50iw1p1 DEBUG=1 bl31
 	touch .firmware.compile
 
 .sunxi-tools.checkout:
