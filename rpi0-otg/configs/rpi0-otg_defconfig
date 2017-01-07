@@ -30,5 +30,5 @@ BR2_PACKAGE_HOST_MTOOLS=y
 BR2_TARGET_ROOTFS_EXT2=y
 BR2_TARGET_ROOTFS_EXT2_4=y
 # BR2_TARGET_ROOTFS_TAR is not set
-BR2_ROOTFS_POST_BUILD_SCRIPT="$(BR2_EXTERNAL)/board/raspberrypi0/post-build.sh"
-BR2_ROOTFS_POST_IMAGE_SCRIPT="$(BR2_EXTERNAL)/board/raspberrypi0/post-image.sh"
+BR2_ROOTFS_POST_BUILD_SCRIPT="$(BR2_EXTERNAL_rpi0_otg_PATH)/board/raspberrypi0/post-build.sh"
+BR2_ROOTFS_POST_IMAGE_SCRIPT="$(BR2_EXTERNAL_rpi0_otg_PATH)/board/raspberrypi0/post-image.sh"
