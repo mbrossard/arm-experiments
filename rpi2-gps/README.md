@@ -16,6 +16,6 @@ Configure buildroot to use our modifications.
 
 Compile everything.
 
-If everythin works according to plans, a disk image should appear at
+If everything works according to plans, a disk image should appear at:
 
 > buildroot/output/images/sdcard.img
