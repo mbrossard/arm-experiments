@@ -9,6 +9,10 @@ Work based on Maik Scholz patch.
 
 Clone a copy of the buildroot repository.
 
+> cat patches/rpi-firmware-aarch64.patch | (cd buildroot ; patch -p1)
+
+Apply a patch to use a firmware version compatible with AArch64
+
 > make -C buildroot BR2_EXTERNAL=$PWD rpi3-aarch64_defconfig
 
 Configure buildroot to use our modifications.
